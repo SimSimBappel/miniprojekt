@@ -3,7 +3,7 @@
 
 
 
-int main(int argc, char const *argv[])
+int main(int argc, char **argv)
 {
     ros::init(argc, argv, "thing");
     return 0;
