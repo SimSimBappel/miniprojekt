@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
     roscpp
     rospy
     geometry_msgs
-    # my_code_msgs
+    my_code_msgs
 
 )
 
@@ -107,7 +107,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES miniprojekt
-#  CATKIN_DEPENDS my_code_msgs
+ CATKIN_DEPENDS my_code_msgs
     
 #  DEPENDS system_lib
 )
