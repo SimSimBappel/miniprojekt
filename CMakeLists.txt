@@ -139,6 +139,7 @@ include_directories(
  add_executable(thing src/thing.cpp)
  add_executable(opret_opdater_seng src/opret_opdater_seng.cpp)
  add_executable(buffer_node src/buffer_node.cpp)
+ add_executable(buffer_node2 src/buffer_node2.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -157,6 +158,9 @@ target_link_libraries(opret_opdater_seng
   ${catkin_LIBRARIES}
 )
 target_link_libraries(buffer_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(buffer_node2
   ${catkin_LIBRARIES}
 )
 #############
