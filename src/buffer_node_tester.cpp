@@ -21,7 +21,7 @@ int main(int argc, char **argv)
     ros::ServiceClient client = nh.serviceClient<miniprojekt::newString>("service_talker");
     //my_code_msgs::myString srv;
     miniprojekt::newString srv;
-    
+    while(ros::ok){
     string input;
     cin >> input;
     string test = "plads: 11,seng: 6,ja,-1.03911781216,11.1295263925,0.753757344949,0.0";
@@ -37,6 +37,6 @@ int main(int argc, char **argv)
     else{
         cout << "do not work" << endl;
     }
-
+    }
     return 0;
 }

@@ -16,6 +16,9 @@ using namespace std;
 //     res.str = response;
 //     return true;
 // }
+struct sengeliste{
+    vector <string> he;
+}liste;
 
 bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse &res){
     cout << req.str << endl;
@@ -30,25 +33,34 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
     if (input == "oprette"){
         cout << "du havde sendt oprettet" << endl;
         res.str = "du havde sendt noget under oprettet";
+        return true;
     }
     else if(input == "tjek"){
         cout << "du havde sendt tjek" << endl;
         res.str  = "du havde sendt noget under tjek" ;
+        return true;
 
     }
     else if(input == "opdater"){
         cout << "du havde sendt opdater" << endl;
         res.str = "duhavde sendt noget med under opdater";
+        return true;
     }
-
+    else if(input == "done"){
+        cout << "skal nok skrive det ind :)" << endl;
+        res.str = "Det skrives ind";
+        
+        return true;
+    }
     else{
         cout << "det du sendte gav ikke mening" << endl;
         res.str = "det gav ingen mening det du sendte";
+        return false;
     }
 
 
 
-    return true;
+    
 }
 
 int main(int argc, char **argv)
