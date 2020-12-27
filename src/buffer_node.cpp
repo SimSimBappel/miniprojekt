@@ -1,5 +1,6 @@
 #include <iostream>
 #include "ros/ros.h"
+#include <my_code_msgs/myString.h>
 
 
 

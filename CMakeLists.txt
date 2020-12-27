@@ -11,6 +11,8 @@ find_package(catkin REQUIRED COMPONENTS
     roscpp
     rospy
     geometry_msgs
+    my_code_msgs
+
 )
 
 ## System dependencies are found with CMake's conventions
@@ -105,7 +107,8 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES miniprojekt
-#  CATKIN_DEPENDS other_catkin_pkg
+ CATKIN_DEPENDS my_code_msgs
+    
 #  DEPENDS system_lib
 )
 
