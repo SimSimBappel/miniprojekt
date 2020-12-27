@@ -135,6 +135,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
  add_executable(thing src/thing.cpp)
  add_executable(opret_opdater_seng src/opret_opdater_seng.cpp)
+ add_executable(buffer_node src/buffer_node.cpp)
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -150,6 +151,9 @@ target_link_libraries(thing
   ${catkin_LIBRARIES}
 )
 target_link_libraries(opret_opdater_seng
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(buffer_node
   ${catkin_LIBRARIES}
 )
 #############
