@@ -6,6 +6,6 @@
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "buffer_node2");
+    ros::init(argc, argv, "buffer_node_tester");
     return 0;
 }
