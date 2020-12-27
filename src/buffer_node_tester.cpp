@@ -7,6 +7,7 @@
 // #include <my_code_msgs/myStringRequest.h>
 // #include <my_code_msgs/myStringResponse.h>
 #include <miniprojekt/newString.h>
+// #include <miniprojekt/newStringRequest.h>
 #include <miniprojekt/newStringRequest.h>
 #include <miniprojekt/newStringResponse.h>
 using namespace std;
@@ -25,7 +26,9 @@ int main(int argc, char **argv)
     cin >> input;
     string test = "plads: 11,seng: 6,ja,-1.03911781216,11.1295263925,0.753757344949,0.0";
     string send = input + "," + test;
-    srv.request.str = send ;
+    srv.request.str = test ;
+    srv.request.head = input;
+    
     //cout << srv << endl;
     if(client.call(srv)){
         cout << "calling :)" << endl;

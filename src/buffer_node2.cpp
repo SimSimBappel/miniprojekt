@@ -21,10 +21,11 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
     cout << req.str << endl;
     string response = "hej med dig";
     string input;
-    stringstream ss;
-    ss << req.str;
-    
-    getline(ss, input , ',');
+    // stringstream ss;
+    // ss << req.str;
+    input = req.head;
+
+    //getline(ss, input , ',');
 
     if (input == "oprette"){
         cout << "du havde sendt oprettet" << endl;
@@ -39,6 +40,7 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
         cout << "du havde sendt opdater" << endl;
         res.str = "duhavde sendt noget med under opdater";
     }
+
     else{
         cout << "det du sendte gav ikke mening" << endl;
         res.str = "det gav ingen mening det du sendte";
