@@ -20,7 +20,32 @@ using namespace std;
 bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse &res){
     cout << req.str << endl;
     string response = "hej med dig";
-    res.str = response;
+    string input;
+    stringstream ss;
+    ss << req.str;
+    
+    getline(ss, input , ',');
+
+    if (input == "oprette"){
+        cout << "du havde sendt oprettet" << endl;
+        res.str = "du havde sendt noget under oprettet";
+    }
+    else if(input == "tjek"){
+        cout << "du havde sendt tjek" << endl;
+        res.str  = "du havde sendt noget under tjek" ;
+
+    }
+    else if(input == "opdater"){
+        cout << "du havde sendt opdater" << endl;
+        res.str = "duhavde sendt noget med under opdater";
+    }
+    else{
+        cout << "det du sendte gav ikke mening" << endl;
+        res.str = "det gav ingen mening det du sendte";
+    }
+
+
+
     return true;
 }
 

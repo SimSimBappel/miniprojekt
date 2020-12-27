@@ -20,9 +20,12 @@ int main(int argc, char **argv)
     ros::ServiceClient client = nh.serviceClient<miniprojekt::newString>("service_talker");
     //my_code_msgs::myString srv;
     miniprojekt::newString srv;
-
+    
+    string input;
+    cin >> input;
     string test = "plads: 11,seng: 6,ja,-1.03911781216,11.1295263925,0.753757344949,0.0";
-    srv.request.str = test;
+    string send = input + "," + test;
+    srv.request.str = send ;
     //cout << srv << endl;
     if(client.call(srv)){
         cout << "calling :)" << endl;
