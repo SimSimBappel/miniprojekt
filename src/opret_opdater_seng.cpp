@@ -4,9 +4,6 @@
 #include <fstream>
 #include <unistd.h>
 #include <stdio.h>
-
-//#include <filesystem> //remove if not used
-//#include <nav_msgs/Odometry.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
 using namespace std;
@@ -148,6 +145,7 @@ int main(int argc, char **argv){
 
         case(3):
         {
+            //opdater
             file.open(getFilename());
             cout << "Vælg en plads du vil opdatere:";
             cin >> input;
@@ -211,7 +209,7 @@ string getFilename(){
   }
   file_name = username;
       
-  file_name = "/home/" + file_name + "/catkin_ws/src/p1_ws/sengeplads.txt";
+  file_name = "/home/" + file_name + "/catkin_ws/src/miniprojekt/sengeplads.txt";
   return file_name;
  
 }
