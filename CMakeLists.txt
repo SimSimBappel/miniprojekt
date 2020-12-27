@@ -11,8 +11,10 @@ find_package(catkin REQUIRED COMPONENTS
     roscpp
     rospy
     geometry_msgs
-    my_code_msgs
-
+    # my_code_msgs
+    std_msgs
+    message_generation
+    # miniprojekt
 )
 
 ## System dependencies are found with CMake's conventions
@@ -56,11 +58,11 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  newString.srv
+  # Service2.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -70,10 +72,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs  # Or other packages containing msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -107,8 +109,8 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES miniprojekt
- CATKIN_DEPENDS my_code_msgs
-    
+ CATKIN_DEPENDS  message_runtime std_msgs
+    # my_code_msgs
 #  DEPENDS system_lib
 )
 
