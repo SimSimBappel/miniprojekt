@@ -43,17 +43,18 @@ int main(int argc, char **argv){
     string input;
     string opgave;
 
+   
 
-    cout << "Vil du tjekke, oprette eller opdatere en plads? \n";
+    cout << "Vil du 1: tjekke, 2: oprette eller 3: opdatere en plads? \n";
     cin >> opgave;
     
-    if (opgave == "tjekke"){
+    if (opgave == "tjekke" || opgave == "1"){
         job = 1;
     } 
-    if (opgave == "oprette"){
+    else if (opgave == "oprette" || opgave == "2"){
         job = 2;
     }
-    if (opgave == "opdatere"){
+    else if (opgave == "opdatere" || opgave == "3"){
         job = 3;
     }
 
@@ -64,7 +65,7 @@ int main(int argc, char **argv){
 
         case(1):
            {    
-            
+            //tjekke
             file.open(getFilename());
             
             cout << "Vælg en plads:";
@@ -98,6 +99,7 @@ int main(int argc, char **argv){
 
         case(2):
         {
+            //oprette
             init(argc, argv, "class_forsog_node");
             
             int plads;
@@ -145,35 +147,67 @@ int main(int argc, char **argv){
 
         case(3):
         {
-            //opdater
-            file.open(getFilename());
+            //opdatere
+            file.open(getFilename(),ios::in | ios::out);
             cout << "Vælg en plads du vil opdatere:";
-            cin >> input;
+            //cin >> input;
             string seng;
             cout << "angiv ny sengenummer" << '\n';
-            cin >> seng;
-            int lineno = stoi(input);
-            string line_list[6];
+            //cin >> seng;
+            int line_no = stoi(input);
+
+
+            string line_elements[7];
+            string tokens[checkLineNr()][7];
+            int line = 0; 
+            //checkLineNr(); // delete this
+
 
             if(file.is_open()){
-                
-                file.seekg (lineno);
-                getline(file,line);
-                cout << line;
-                stringstream line;
-                getline(line,line_list[0], ',');
-                getline(line,line_list[1], ',');
-                getline(line,line_list[2], ',');
-                getline(line,line_list[3], ',');
-                getline(line,line_list[4], ',');
-                getline(line,line_list[5]);
-                line_list[1] = "seng: " + seng;
+                //string current_plads = "";  
+                int plads_nr = 0;
+                string temp_input = "plads: " + input;
+                while(getline(file, line_elements[0], ',')){ //read data from file object and put it into string.
+                    tokens[line][0] = line_elements[0];
+                    cout << tokens[line][0] << '\n';
 
-
+                    for (int i = 1; i < 6; i++)
+                    {
+                        getline(file, line_elements[i], ',');
+                        tokens[line][i] = line_elements[i];
+                        cout << tokens[line][i] << '\n';
+                    }
+                    line ++;
+                }
             }
-            string new_line = line_list[0] + line_list[1] + line_list[2] + line_list[3] + line_list[4] + line_list[5];
-            string strReplace = line;
-            cout << new_line << '\n';    
+
+
+
+
+
+
+
+
+            // if(file.is_open()){
+                
+            //     file.seekg (line_no);
+            //     getline(file,line);
+            //     cout << line << '\n';
+            //     stringstream line;
+            //     getline(line,line_list[0], ',');
+            //     getline(line,line_list[1], ',');
+            //     getline(line,line_list[2], ',');
+            //     getline(line,line_list[3], ',');
+            //     getline(line,line_list[4], ',');
+            //     getline(line,line_list[5], ',');
+            //     getline(line,line_list[6]);
+            //     line_list[1] = "seng: " + seng;
+
+
+            // }
+            // string new_line = line_list[0] + line_list[1] + line_list[2] + line_list[3] + line_list[4] + line_list[5];
+             
+            // cout << new_line << '\n';    
         
             
 
@@ -192,9 +226,11 @@ int checkLineNr(){
     string temp;
     while(getline(newfile, temp)){
       doc_line_nr++;
+      //cout << temp << '\n'; //delete this
     }
   }
   newfile.close();
+  //cout << doc_line_nr << '\n';
   return  doc_line_nr;
 }
 
