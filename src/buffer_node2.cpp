@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ros/ros.h"
 #include <string>
+#include <fstream>
 // #include <my_code_msgs/myString.h>
 // #include <my_code_msgs/myStringRequest.h>
 // #include <my_code_msgs/myStringResponse.h>
@@ -12,6 +13,10 @@ using namespace std;
 
 void terminalWrite();
 void sortering();
+void readText();
+void writeText();
+string getFilename();
+
 // bool callBack(my_code_msgs::myStringRequest &req, my_code_msgs::myStringResponse &res){
 //     cout << req.str << endl;
 //     string response = "hej";
@@ -19,7 +24,7 @@ void sortering();
 //     return true;
 // }
 struct sengeliste{
-    vector <string> he;
+    vector <string> text;
 }liste;
 
 bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse &res){
@@ -36,7 +41,7 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
     if (input == "oprette"){
         cout << "du havde sendt oprettet" << endl;
         res.str = "Den er blevet oprettet";
-        liste.he.push_back(req.str);
+        liste.text.push_back(req.str);
         return true;
     }
     else if(input == "tjek"){
@@ -53,10 +58,12 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
     else if(input == "done"){
         cout << "skal nok skrive det ind :)" << endl;
         res.str = "Det skrives ind";
+        readText();
         terminalWrite();
         sortering();
         terminalWrite();
-        liste.he.clear();
+        writeText();
+        liste.text.clear();
         return true;
     }
     else{
@@ -78,8 +85,8 @@ int main(int argc, char **argv)
 }
 
 void terminalWrite(){
-    for(int i = 0; i < liste.he.size();i++){
-        cout << liste.he[i] << endl;
+    for(int i = 0; i < liste.text.size();i++){
+        cout << liste.text[i] << endl;
     }
 
 }
@@ -90,16 +97,16 @@ int good = 1;
 while(good == 1){
     good = 0;
 
-    for(int i = 0; i < liste.he.size(); i++){
-      if(i+1 < liste.he.size()) { 
+    for(int i = 0; i < liste.text.size(); i++){
+      if(i+1 < liste.text.size()) { 
         
         string holder[4];
         
         stringstream s;
         stringstream ss;
-        ss << liste.he[i+1];
+        ss << liste.text[i+1];
         
-        s << liste.he[i];
+        s << liste.text[i];
         
         getline(s, holder[0], ' ');
         
@@ -113,9 +120,9 @@ while(good == 1){
         
         int check_2 = stoi(holder[3]);
         
-        if(check_1 > check_2 && i+1 < liste.he.size() ){
+        if(check_1 > check_2 && i+1 < liste.text.size() ){
             
-            swap(liste.he[i],liste.he[i+1]);
+            swap(liste.text[i],liste.text[i+1]);
             
             good = 1;
         }
@@ -127,3 +134,51 @@ while(good == 1){
     }
 
 }
+
+void readText(){
+    fstream file;
+    file.open(getFilename(), ios::in);
+    string temper;
+    if(file.is_open()){
+        while(getline(file,temper)){
+            liste.text.push_back(temper);
+        }
+    }
+    else{
+        cout << "Could not open the file :(" << endl;
+    }
+    file.close();
+}
+
+void writeText(){
+    fstream file;
+    file.open(getFilename(), ios::trunc |ios::out);
+    if(file.is_open()){
+        for (int i = 0; i < liste.text.size(); i++)
+        {
+            file << liste.text[i];
+        }
+        
+    }
+    else{
+        cout << "Could not open til file :(" << endl;
+    }
+    file.close();
+}
+
+
+string getFilename(){
+  string file_name;
+  char username[L_cuserid];
+  if(cuserid(username) == NULL)
+  {
+    cout << "could not resolve username\n";
+    exit(1);
+  }
+  file_name = username;
+      
+  file_name = "/home/" + file_name + "/catkin_ws/src/miniprojekt/sengeplads.txt";
+  return file_name;
+ 
+}
+
