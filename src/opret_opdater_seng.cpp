@@ -154,36 +154,67 @@ int main(int argc, char **argv)
         {
             //opdatere
             file.open(getFilename(), ios::in | ios::out);
-            cout << "Vælg en plads du vil opdatere:";
+            cout << "Vælg en plads du vil opdatere: ";
             cin >> input;
+            int line_to_change = stoi(input);
+            cout << "i heard" << line_to_change <<endl;
             string seng;
-            cout << "angiv ny sengenummer" << '\n';
-            cin >> seng;
+            //cout << "angiv ny sengenummer" << '\n';
+            //cin >> seng;
 
             string tokens[checkLineNr()+1][7];
             int line = 1; 
-            
+            unsigned int file_pos = 0;
             if(file.is_open()){
                 string line_elements[7] = "";
-                while(getline(file, line_elements[0], ',')){
-                    tokens[line][0] = line_elements[0];
-                    cout << "line: " << line <<'\n';//delete
-                    cout << tokens[line][0] << '\n';//delete
+                if(line == line_to_change){
+                        file_pos = file.tellg();
+                        cout << "file.tellg: " <<file.tellg() << endl;
 
-                    for (int i = 1; i < 6; i++)
+                        cout << "file_pos:   " <<file_pos << endl;
+                    }
+                while(getline(file, line_elements[0], ',')){
+                    if(line == line_to_change){
+                        file_pos = file.tellg();
+                        cout << "file.tellg" <<file.tellg() << endl;
+
+                        cout << "file_pos: " <<file_pos << endl;
+                    }
+                    tokens[line][0] = line_elements[0];
+                    //cout << "line: " << line <<'\n';//delete
+                    //cout << tokens[line][0] << '\n';//delete
+                    //file.seekg(0,ios::beg);
+                    for (int i = 0; i < 6; i++)
                     {
                         getline(file, line_elements[i], ',');
                         tokens[line][i] = line_elements[i];
-                        cout << tokens[line][i] << '\n'; // delete
+                        //cout << tokens[line][i] << '\n'; // delete
                     }
                     getline(file, line_elements[6]);
                     tokens[line][6] = line_elements[6];
-                    cout << tokens[line][6] << '\n' << '\n';// delete
-
+                    //cout << tokens[line][6] << '\n' << '\n';// delete
+                    
                     line ++;
+                    
                 }
 
                 //succing edit time
+
+            }
+            file.close();
+
+            file.open(getFilename(), ios:: out | ios::in);
+
+            if(file.is_open()){
+                
+                //cout << file_pos << endl;
+                file.seekp(file_pos);
+                //file << tokens[line_to_change][0];
+                cout << tokens[line_to_change][0] << endl;
+                string temper ="";
+                getline(file, temper);
+                cout << temper << endl;
+
 
             }
         }
