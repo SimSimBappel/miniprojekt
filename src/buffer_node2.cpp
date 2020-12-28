@@ -10,6 +10,7 @@
 #include <miniprojekt/newStringResponse.h>
 using namespace std;
 
+void terminalWrite();
 // bool callBack(my_code_msgs::myStringRequest &req, my_code_msgs::myStringResponse &res){
 //     cout << req.str << endl;
 //     string response = "hej";
@@ -24,6 +25,7 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
     cout << req.str << endl;
     string response = "hej med dig";
     string input;
+    string space;
     // stringstream ss;
     // ss << req.str;
     input = req.head;
@@ -32,7 +34,8 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
 
     if (input == "oprette"){
         cout << "du havde sendt oprettet" << endl;
-        res.str = "du havde sendt noget under oprettet";
+        res.str = "Den er blevet oprettet";
+        liste.he.push_back(req.str);
         return true;
     }
     else if(input == "tjek"){
@@ -71,5 +74,12 @@ int main(int argc, char **argv)
     ros::ServiceServer service = nh.advertiseService("service_talker",callBack);
     ros::spin();
     return 0;
+
+}
+
+void terminalWrite(){
+    for(int i = 0; i < liste.he.size();i++){
+        cout << liste.he[i] << endl;
+    }
 
 }
