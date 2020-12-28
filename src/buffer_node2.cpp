@@ -89,5 +89,15 @@ void terminalWrite(){
 void sort(){
 
 
+    for(int i = 0; i < liste.he.size(); i++){
+        string holder[3];
+        string s = liste.he[i];
+        // getline(, holder[1], ',');
+        
+        
+
+    }
     
+ 
+
 }
