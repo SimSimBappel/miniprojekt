@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
+#include <miniprojekt/newString.h>
+
 using namespace std;
 using namespace ros;
 
@@ -140,6 +142,28 @@ int main(int argc, char **argv)
 
             if (file.is_open()){
                 file << "plads: " << plads << ",seng: " << seng << "," << bed << "," <<info.x << ","<< info.y << "," << info.z << "," << info.w;
+                
+                ServiceClient clinet = nh.serviceClient<miniprojekt::newString>("service talker" );
+                miniprojekt::newString srv;
+                stringstream ff;
+
+                ff << "plads: " << plads << ",seng: " << seng << "," << bed << "," <<info.x << ","<< info.y << "," << info.z << "," << info.w;
+                string ss = ff.str();
+
+                
+                
+                srv.request.head = "oprette";
+                srv.request.str = ss;
+                //ss = "plads: " + plads + ",seng: " + seng + "," + bed + "," + info.x + "," + info.y + "," + info.z + "," + info.w;
+                
+                
+                if(clinet.call(srv)){
+                        cout << "calling :)" << endl;
+                        cout << "anwser: " << srv.response << endl;
+                    }
+                    else{
+                            cout << "do not work" << endl;
+                        }
             }
         
 
