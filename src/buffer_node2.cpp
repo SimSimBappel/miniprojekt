@@ -57,13 +57,14 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
     }
     else if(input == "done"){
         cout << "skal nok skrive det ind :)" << endl;
-        res.str = "Det skrives ind";
+        
         readText();
         terminalWrite();
         sortering();
         terminalWrite();
         writeText();
         liste.text.clear();
+        res.str = "Writeing :)";
         return true;
     }
     else{
