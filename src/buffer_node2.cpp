@@ -90,10 +90,13 @@ void terminalWrite(){
 
 void sortering(){
     cout << "1" << endl;
+int good = 0;
+while(good != liste.he.size()){
+    good = 0;
 
     for(int i = 0; i < liste.he.size(); i++){
       if(i+1 < liste.he.size()) { 
-
+        
         cout << "sorting" << endl;
         string holder[4];
         cout << "2" << endl;
@@ -118,12 +121,15 @@ void sortering(){
         if(check_1 < check_2 && i+1 < liste.he.size() ){
             cout << "swap" << endl;
             swap(liste.he[i],liste.he[i+1]);
+            terminalWrite();
             
-            
+        }
+        else{
+            good ++;
         }
       }
 
-
+    }
         // getline(, holder[1], ',');
         
         
