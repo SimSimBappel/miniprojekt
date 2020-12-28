@@ -191,19 +191,9 @@ int main(int argc, char **argv)
             unsigned int file_pos = 0;
             if(file.is_open()){
                 string line_elements[7] = "";
-                if(line == line_to_change){
-                        file_pos = file.tellg();
-                        cout << "file.tellg: " <<file.tellg() << endl;
-
-                        cout << "file_pos:   " <<file_pos << endl;
-                    }
+                
                 while(getline(file, line_elements[0], ',')){
-                    if(line == line_to_change){
-                        file_pos = file.tellg();
-                        cout << "file.tellg" <<file.tellg() << endl;
-
-                        cout << "file_pos: " <<file_pos << endl;
-                    }
+                    
                     tokens[line][0] = line_elements[0];
                     //cout << "line: " << line <<'\n';//delete
                     //cout << tokens[line][0] << '\n';//delete
@@ -217,7 +207,19 @@ int main(int argc, char **argv)
                     getline(file, line_elements[6]);
                     tokens[line][6] = line_elements[6];
                     //cout << tokens[line][6] << '\n' << '\n';// delete
-                    
+
+
+
+                    if(line == line_to_change){ // find den rigtige plads til denne for at den kan tage fra linje 1 og til slut
+                        file_pos = file.tellg();
+                        cout << "file.tellg" <<file.tellg() << endl;
+
+                        cout << "file_pos: " <<file_pos << endl;
+                    }
+
+
+
+
                     line ++;
                     
                 }
