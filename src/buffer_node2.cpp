@@ -64,17 +64,13 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
         res.str = "det gav ingen mening det du sendte";
         return false;
     }
-
-
-
-    
 }
 
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "buffer_node2");
     ros::NodeHandle nh;
-    //ros::ServiceServer service = nh.advertiseService("service_talker",callBack);
+    
     ros::ServiceServer service = nh.advertiseService("service_talker",callBack);
     ros::spin();
     return 0;
