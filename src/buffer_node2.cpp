@@ -28,8 +28,8 @@ struct sengeliste{
 }liste;
 
 bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse &res){
-    cout << req.str << endl;
-    string response = "hej med dig";
+    // cout << req.str << endl;
+    // string response = "hej med dig";
     string input;
     string space;
     // stringstream ss;
@@ -39,9 +39,10 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
     //getline(ss, input , ',');
 
     if (input == "oprette"){
-        cout << "du havde sendt oprettet" << endl;
-        res.str = "Den er blevet oprettet";
         liste.text.push_back(req.str);
+        cout << req.str << " have being commited" << endl;
+        res.str = "Have being commited";
+        
         return true;
     }
     else if(input == "tjek"){
@@ -50,13 +51,13 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
         return true;
 
     }
-    else if(input == "opdater"){
-        cout << "du havde sendt opdater" << endl;
-        res.str = "duhavde sendt noget med under opdater";
-        return true;
-    }
+    // else if(input == "opdater"){
+    //     cout << "du havde sendt opdater" << endl;
+    //     res.str = "duhavde sendt noget med under opdater";
+    //     return true;
+    // }
     else if(input == "done"){
-        cout << "skal nok skrive det ind :)" << endl;
+        cout << "Pushing" << endl;
         
         readText();
         terminalWrite();
@@ -64,7 +65,8 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
         terminalWrite();
         writeText();
         liste.text.clear();
-        res.str = "Writeing :)";
+        cout << "pushed" << endl;
+        res.str = "pushed";
         return true;
     }
     else{
