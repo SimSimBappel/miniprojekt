@@ -11,6 +11,7 @@
 using namespace std;
 
 void terminalWrite();
+void sort();
 // bool callBack(my_code_msgs::myStringRequest &req, my_code_msgs::myStringResponse &res){
 //     cout << req.str << endl;
 //     string response = "hej";
@@ -52,7 +53,8 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
     else if(input == "done"){
         cout << "skal nok skrive det ind :)" << endl;
         res.str = "Det skrives ind";
-        
+        terminalWrite();
+        liste.he.clear();
         return true;
     }
     else{
@@ -82,4 +84,10 @@ void terminalWrite(){
         cout << liste.he[i] << endl;
     }
 
+}
+
+void sort(){
+
+
+    
 }
