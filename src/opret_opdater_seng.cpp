@@ -40,15 +40,23 @@ void counterCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &m
 
 int main(int argc, char **argv)
 {
-
+    init(argc, argv, "opret_opdater_seng");
     int job;
-
+    bool done = false;
     string input;
     string opgave;
+    cout << "hej"<< endl;
+    
+    while(ok){
 
+
+    if(done == true){
+       cout << "Vil du 1: tjekke, 2: oprette, 3: opdatere en plads eller 4: push til fil? \n";
+   }
+   else{
+        cout << "Vil du 1: tjekke, 2: oprette eller 3: opdatere en plads? \n";
    
-
-    cout << "Vil du 1: tjekke, 2: oprette eller 3: opdatere en plads? \n";
+   }
     cin >> opgave;
     
     if (opgave == "tjekke" || opgave == "1"){
@@ -60,9 +68,15 @@ int main(int argc, char **argv)
     else if (opgave == "opdatere" || opgave == "3"){
         job = 3;
     }
+    else if (opgave == "push" || opgave == "4"){
+        job = 4;
+    }
 
     string line;
     fstream file;
+    NodeHandle nh;
+    ServiceClient client = nh.serviceClient<miniprojekt::newString>("service_talker" );
+    miniprojekt::newString srv;
 
     switch (job){
 
@@ -126,7 +140,7 @@ int main(int argc, char **argv)
                 bed = "ja";
             }
 
-            NodeHandle nh;
+            
 
             Subscriber sub = nh.subscribe("amcl_pose", 1000, counterCallback);
             
@@ -138,14 +152,7 @@ int main(int argc, char **argv)
                 loop_rate.sleep();
             }
             
-            
-
-            if (file.is_open()){
-                file << "plads: " << plads << ",seng: " << seng << "," << bed << "," <<info.x << ","<< info.y << "," << info.z << "," << info.w;
-                
-                ServiceClient clinet = nh.serviceClient<miniprojekt::newString>("service talker" );
-                miniprojekt::newString srv;
-                stringstream ff;
+            stringstream ff;
 
                 ff << "plads: " << plads << ",seng: " << seng << "," << bed << "," <<info.x << ","<< info.y << "," << info.z << "," << info.w;
                 string ss = ff.str();
@@ -154,17 +161,21 @@ int main(int argc, char **argv)
                 
                 srv.request.head = "oprette";
                 srv.request.str = ss;
-                //ss = "plads: " + plads + ",seng: " + seng + "," + bed + "," + info.x + "," + info.y + "," + info.z + "," + info.w;
                 
-                
-                if(clinet.call(srv)){
+                if(client.call(srv)){
                         cout << "calling :)" << endl;
                         cout << "anwser: " << srv.response << endl;
+                        done = true;
                     }
                     else{
                             cout << "do not work" << endl;
                         }
-            }
+//den er streget ud da vi nok nu kan køre det gennem buffer_node2
+            // if (file.is_open()){
+            //     file << "plads: " << plads << ",seng: " << seng << "," << bed << "," <<info.x << ","<< info.y << "," << info.z << "," << info.w;
+                
+                
+            // }
         
 
             file.close();
@@ -243,7 +254,28 @@ int main(int argc, char **argv)
 
 
             }
+            break;
         }
+        case(4):
+        {
+            srv.request.head = "push";
+            srv.request.str = "";
+            if(client.call(srv)){
+                cout << "calling :)" << endl;
+                cout << "anwser: " << srv.response << endl;
+            }
+            else{
+                cout << "do not work" << endl;
+            }
+            break;
+        }
+        default:
+        {
+            cout << "Wrong" << endl;
+        }
+
+    }
+
     }
 }
 

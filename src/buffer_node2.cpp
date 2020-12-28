@@ -2,13 +2,10 @@
 #include "ros/ros.h"
 #include <string>
 #include <fstream>
-// #include <my_code_msgs/myString.h>
-// #include <my_code_msgs/myStringRequest.h>
-// #include <my_code_msgs/myStringResponse.h>
 
 #include <miniprojekt/newString.h>
-#include <miniprojekt/newStringRequest.h>
-#include <miniprojekt/newStringResponse.h>
+// #include <miniprojekt/newStringRequest.h>
+// #include <miniprojekt/newStringResponse.h>
 using namespace std;
 
 void terminalWrite();
@@ -17,26 +14,17 @@ void readText();
 void writeText();
 string getFilename();
 
-// bool callBack(my_code_msgs::myStringRequest &req, my_code_msgs::myStringResponse &res){
-//     cout << req.str << endl;
-//     string response = "hej";
-//     res.str = response;
-//     return true;
-// }
+
 struct sengeliste{
     vector <string> text;
 }liste;
 
 bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse &res){
-    // cout << req.str << endl;
-    // string response = "hej med dig";
+    
     string input;
     string space;
-    // stringstream ss;
-    // ss << req.str;
+    
     input = req.head;
-
-    //getline(ss, input , ',');
 
     if (input == "oprette"){
         liste.text.push_back(req.str);
@@ -56,7 +44,7 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
     //     res.str = "duhavde sendt noget med under opdater";
     //     return true;
     // }
-    else if(input == "done"){
+    else if(input == "push"){
         cout << "Pushing" << endl;
         
         readText();
@@ -79,6 +67,7 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "buffer_node2");
+    cout << "The buffer node for updates for sengeplads have been started :)" << endl;
     ros::NodeHandle nh;
     
     ros::ServiceServer service = nh.advertiseService("service_talker",callBack);
