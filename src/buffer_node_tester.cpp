@@ -22,9 +22,14 @@ int main(int argc, char **argv)
     //my_code_msgs::myString srv;
     miniprojekt::newString srv;
     while(ros::ok){
+
+        cout << "indtast pladsnummer: ";
+        string input_2;
+        cin >> input_2;
+        cout << "skriv: oprette eller done" << endl;
     string input;
     cin >> input;
-    string test = "plads: 11,seng: 6,ja,-1.03911781216,11.1295263925,0.753757344949,0.0";
+    string test = "plads: "+ input_2 +",seng: 6,ja,-1.03911781216,11.1295263925,0.753757344949,0.0";
     string send = input + "," + test;
     srv.request.str = test ;
     srv.request.head = input;

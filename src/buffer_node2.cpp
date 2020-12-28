@@ -10,6 +10,8 @@
 #include <miniprojekt/newStringResponse.h>
 using namespace std;
 
+void terminalWrite();
+void sort();
 // bool callBack(my_code_msgs::myStringRequest &req, my_code_msgs::myStringResponse &res){
 //     cout << req.str << endl;
 //     string response = "hej";
@@ -24,6 +26,7 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
     cout << req.str << endl;
     string response = "hej med dig";
     string input;
+    string space;
     // stringstream ss;
     // ss << req.str;
     input = req.head;
@@ -32,7 +35,8 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
 
     if (input == "oprette"){
         cout << "du havde sendt oprettet" << endl;
-        res.str = "du havde sendt noget under oprettet";
+        res.str = "Den er blevet oprettet";
+        liste.he.push_back(req.str);
         return true;
     }
     else if(input == "tjek"){
@@ -49,7 +53,8 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
     else if(input == "done"){
         cout << "skal nok skrive det ind :)" << endl;
         res.str = "Det skrives ind";
-        
+        terminalWrite();
+        liste.he.clear();
         return true;
     }
     else{
@@ -71,5 +76,45 @@ int main(int argc, char **argv)
     ros::ServiceServer service = nh.advertiseService("service_talker",callBack);
     ros::spin();
     return 0;
+
+}
+
+void terminalWrite(){
+    for(int i = 0; i < liste.he.size();i++){
+        cout << liste.he[i] << endl;
+    }
+
+}
+
+void sort(){
+
+
+    for(int i = 0; i < liste.he.size(); i++){
+        string holder[4];
+        stringstream s;
+        stringstream ss;
+        ss << liste.he[i+1];
+        s << liste.he[i];
+        getline(s, holder[0], ' ');
+        getline(s, holder[1], ',');
+
+        getline(ss, holder[2], ' ');
+        getline(ss, holder[3], ',');
+        int check_1 = stoi(holder[1]);
+        int check_2 = stoi(holder[3]);
+
+        if(check_1 < check_2){
+            swap(liste.he[i],liste.he[i+1]);
+            
+        }
+
+
+        // getline(, holder[1], ',');
+        
+        
+
+    }
+    
+ 
 
 }
