@@ -148,27 +148,27 @@ int main(int argc, char **argv){
         case(3):
         {
             //opdatere
-            file.open(getFilename(),ios::in | ios::out);
+            file.open(getFilename(), ios::in | ios::out);
             cout << "Vælg en plads du vil opdatere:";
             //cin >> input;
             string seng;
             cout << "angiv ny sengenummer" << '\n';
             //cin >> seng;
-            int line_no = stoi(input);
 
 
-            string line_elements[7];
-            string tokens[checkLineNr()][7];
-            int line = 0; 
-            //checkLineNr(); // delete this
-
+            
+            string tokens[checkLineNr()+1][7];
+            int line = 1; 
+            
 
             if(file.is_open()){
-                //string current_plads = "";  
+                
                 int plads_nr = 0;
-                string temp_input = "plads: " + input;
-                while(getline(file, line_elements[0], ',')){ //read data from file object and put it into string.
+                //string temp_input = "plads: " + input;
+                string line_elements[7] = "";
+                while(getline(file, line_elements[0], ',')){
                     tokens[line][0] = line_elements[0];
+                    cout << "line: " << line <<'\n';
                     cout << tokens[line][0] << '\n';
 
                     for (int i = 1; i < 6; i++)
@@ -177,7 +177,12 @@ int main(int argc, char **argv){
                         tokens[line][i] = line_elements[i];
                         cout << tokens[line][i] << '\n';
                     }
+                    getline(file, line_elements[6]);
+                    tokens[line][6] = line_elements[6];
+                    cout << tokens[line][6] << '\n' << '\n';
+
                     line ++;
+                    
                 }
             }
 
