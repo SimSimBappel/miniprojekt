@@ -53,6 +53,7 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
     else if(input == "done"){
         cout << "skal nok skrive det ind :)" << endl;
         res.str = "Det skrives ind";
+        sort();
         terminalWrite();
         liste.he.clear();
         return true;
@@ -103,7 +104,8 @@ void sort(){
         int check_1 = stoi(holder[1]);
         int check_2 = stoi(holder[3]);
 
-        if(check_1 < check_2){
+        if(check_1 < check_2 && i+1 > liste.he.size() ){
+            cout << "swap" << endl;
             swap(liste.he[i],liste.he[i+1]);
             
         }
