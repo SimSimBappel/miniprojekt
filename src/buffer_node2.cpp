@@ -90,8 +90,25 @@ void sort(){
 
 
     for(int i = 0; i < liste.he.size(); i++){
-        string holder[3];
-        string s = liste.he[i];
+        string holder[4];
+        stringstream s;
+        stringstream ss;
+        ss << liste.he[i+1];
+        s << liste.he[i];
+        getline(s, holder[0], ' ');
+        getline(s, holder[1], ',');
+
+        getline(ss, holder[2], ' ');
+        getline(ss, holder[3], ',');
+        int check_1 = stoi(holder[1]);
+        int check_2 = stoi(holder[3]);
+
+        if(check_1 < check_2){
+            swap(liste.he[i],liste.he[i+1]);
+            
+        }
+
+
         // getline(, holder[1], ',');
         
         
