@@ -206,9 +206,6 @@ int main(int argc, char **argv)
                 string line_elements[7] = "";
                 
                 while(getline(file, line_elements[0], ',')){
-
-                  
-
                     tokens[line][0] = line_elements[0];
                     //cout << "line: " << line <<'\n';//delete
                     cout << tokens[line][0] << '\n';//delete
@@ -222,13 +219,6 @@ int main(int argc, char **argv)
                     getline(file, line_elements[6]);
                     tokens[line][6] = line_elements[6];
                     cout << tokens[line][6] << '\n' << '\n';// delete
-
-
-
-                    
-
-
-
 
                     line ++;
                     if(line == line_to_change){ // find den rigtige plads til denne for at den kan tage fra linje 1 og til slut
@@ -253,7 +243,7 @@ int main(int argc, char **argv)
                 //cout << file_pos << endl;
                 file.seekp(file_pos);
 
-                file << tokens[line_to_change][0] << ",seng: " << bed_nr;
+                file << tokens[line_to_change][0] << ",seng: " << bed_nr <<",";
                 //file << tokens[line_to_change][0];
                 cout << "token line_to_change: "<< tokens[line_to_change][0] << endl;
                 string temper ="";
