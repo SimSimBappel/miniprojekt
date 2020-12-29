@@ -47,7 +47,7 @@ int main(int argc, char **argv)
     string opgave;
     cout << "hej"<< endl;
     
-    while(ok){
+    //while(ok){
 
 
     if(done == true){
@@ -192,10 +192,12 @@ int main(int argc, char **argv)
             cout << "Vælg en plads du vil opdatere: ";
             cin >> input;
             int line_to_change = stoi(input);
-            cout << "i heard" << line_to_change <<endl;
+            
             string seng;
-            //cout << "angiv ny sengenummer" << '\n';
-            //cin >> seng;
+            cout << "angiv ny sengenummer" << '\n';
+            cin >> seng;
+            int bed_nr = stoi(seng);
+            cout << bed_nr << endl;
 
             string tokens[checkLineNr()+1][7];
             int line = 1; 
@@ -204,36 +206,40 @@ int main(int argc, char **argv)
                 string line_elements[7] = "";
                 
                 while(getline(file, line_elements[0], ',')){
-                    
+
+                  
+
                     tokens[line][0] = line_elements[0];
                     //cout << "line: " << line <<'\n';//delete
-                    //cout << tokens[line][0] << '\n';//delete
+                    cout << tokens[line][0] << '\n';//delete
                     //file.seekg(0,ios::beg);
-                    for (int i = 0; i < 6; i++)
+                    for (int i = 1; i < 6; i++)
                     {
                         getline(file, line_elements[i], ',');
                         tokens[line][i] = line_elements[i];
-                        //cout << tokens[line][i] << '\n'; // delete
+                        cout << tokens[line][i] << '\n'; // delete
                     }
                     getline(file, line_elements[6]);
                     tokens[line][6] = line_elements[6];
-                    //cout << tokens[line][6] << '\n' << '\n';// delete
+                    cout << tokens[line][6] << '\n' << '\n';// delete
 
 
 
-                    if(line == line_to_change){ // find den rigtige plads til denne for at den kan tage fra linje 1 og til slut
-                        file_pos = file.tellg();
-                        cout << "file.tellg" <<file.tellg() << endl;
-
-                        cout << "file_pos: " <<file_pos << endl;
-                    }
+                    
 
 
 
 
                     line ++;
+                    if(line == line_to_change){ // find den rigtige plads til denne for at den kan tage fra linje 1 og til slut
+                        file_pos = file.tellg();
+                        cout << "file.tellg: " << file.tellg() << endl;
+
+                        cout << "file_pos: " <<file_pos << endl;
+                    }
                     
                 }
+                
 
                 //succing edit time
 
@@ -246,11 +252,14 @@ int main(int argc, char **argv)
                 
                 //cout << file_pos << endl;
                 file.seekp(file_pos);
+
+                file << tokens[line_to_change][0] << ",seng: " << bed_nr;
                 //file << tokens[line_to_change][0];
-                cout << tokens[line_to_change][0] << endl;
+                cout << "token line_to_change: "<< tokens[line_to_change][0] << endl;
                 string temper ="";
+                file.seekg(file_pos);
                 getline(file, temper);
-                cout << temper << endl;
+                cout << "temper: " << temper << endl;
 
 
             }
@@ -276,7 +285,7 @@ int main(int argc, char **argv)
 
     }
 
-    }
+   // }
 }
 
 int checkLineNr(){
