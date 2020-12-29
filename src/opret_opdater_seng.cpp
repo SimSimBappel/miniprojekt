@@ -119,13 +119,13 @@ int main(int argc, char **argv)
         case(2):
         {
             //oprette
-            init(argc, argv, "class_forsog_node");
+            // init(argc, argv, "class_forsog_node");
             
             int plads;
             int seng;
 
             
-            file.open(getFilename(),ios::app);
+            // file.open(getFilename(),ios::app);
 
             cout << "Venligst skriv plads nummer \n" ;
             cin >> plads;
@@ -178,7 +178,7 @@ int main(int argc, char **argv)
             // }
         
 
-            file.close();
+            // file.close();
 
             break;
         }
