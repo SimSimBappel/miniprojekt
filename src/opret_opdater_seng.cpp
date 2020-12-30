@@ -191,24 +191,21 @@ int main(int argc, char **argv)
                 }
 
                 string tokens[checkLineNr()+1][7];
-                int line = 1; 
+                unsigned int line = 1; 
                 unsigned int file_pos = 0;
                 if(file.is_open()){
-                    string line_elements[7] = "";
                     
-                    while(getline(file, line_elements[0], ',')){
-                        tokens[line][0] = line_elements[0];
+                    
+                    while(getline(file, tokens[line][0], ',')){
 
                         for (int i = 1; i < 6; i++)
                         {
-                            getline(file, line_elements[i], ',');
-                            tokens[line][i] = line_elements[i];
+                            getline(file, tokens[line][i], ',');
                         }
-                        getline(file, line_elements[6]);
-                        tokens[line][6] = line_elements[6];
+                        getline(file, tokens[line][6]);
                         
-
                         line ++;
+                        
                         if(line == line_to_change){ 
                             file_pos = file.tellg();
 
