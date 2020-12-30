@@ -89,8 +89,7 @@ void sortering(){
     while(good == 1){
         good = 0;
 
-        for(int i = 0; i < liste.text.size(); i++){
-          if(i+1 < liste.text.size()) { 
+        for(int i = 0; i+1 < liste.text.size(); i++){
         
              string holder[4];
         
@@ -116,7 +115,7 @@ void sortering(){
                  good = 1;
                 }
             }
-        }
+        
     }
 }
 
@@ -141,7 +140,7 @@ void writeText(){
     if(file.is_open()){
         for (int i = 0; i < liste.text.size(); i++)
         {
-            file << liste.text[i];
+            file << liste.text[i] << '\n';
         }
         
     }
