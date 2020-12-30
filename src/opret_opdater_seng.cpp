@@ -249,6 +249,7 @@ int main(int argc, char **argv)
                     {
                         file << "," << tokens[line_to_change][i];
                     }
+                    
                     file << ",0.0  ";
 
                     
