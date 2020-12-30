@@ -85,46 +85,39 @@ void terminalWrite(){
 
 void sortering(){
     cout << "sorting" << endl;
-int good = 1;
-while(good == 1){
-    good = 0;
+    int good = 1;
+    while(good == 1){
+        good = 0;
 
-    for(int i = 0; i < liste.text.size(); i++){
-      if(i+1 < liste.text.size()) { 
+        for(int i = 0; i < liste.text.size(); i++){
+          if(i+1 < liste.text.size()) { 
         
-        string holder[4];
+             string holder[4];
         
-        stringstream s;
-        stringstream ss;
-        ss << liste.text[i+1];
+             stringstream s;
+             stringstream ss;
+             ss << liste.text[i+1];
         
-        s << liste.text[i];
+             s << liste.text[i];
         
-        getline(s, holder[0], ' ');
+             getline(s, holder[0], ' ');
+             getline(s, holder[1], ',');
+             getline(ss, holder[2], ' ');
+             getline(ss, holder[3], ',');
         
-        getline(s, holder[1], ',');
+             int check_1 = stoi(holder[1]);
         
-        getline(ss, holder[2], ' ');
+             int check_2 = stoi(holder[3]);
         
-        getline(ss, holder[3], ',');
-        
-        int check_1 = stoi(holder[1]);
-        
-        int check_2 = stoi(holder[3]);
-        
-        if(check_1 > check_2 && i+1 < liste.text.size() ){
+             if(check_1 > check_2 && i+1 < liste.text.size() ){
+                 
+                 swap(liste.text[i],liste.text[i+1]);
             
-            swap(liste.text[i],liste.text[i+1]);
-            
-            good = 1;
+                 good = 1;
+                }
+            }
         }
-        
-      }
-
     }
-    
-    }
-
 }
 
 void readText(){
