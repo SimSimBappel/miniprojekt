@@ -54,7 +54,7 @@ int main(int argc, char **argv)
         cout << "Vil du 1: tjekke, 2: oprette, 3: opdatere en plads eller 4: push til fil? \n";
         }
         else{
-            cout << "Vil du 1: tjekke, 2: oprette eller 3: opdatere en plads? \n";
+            cout << "Vil du 1: tjekke, 2: oprette eller 3: opdatere en plads? ";
     
         }
 
@@ -176,17 +176,18 @@ int main(int argc, char **argv)
             case(3):
             {
                 //opdatere
-                file.open(getFilename(), ios::in | ios::out);
+                file.open(getFilename());
                 cout << "Vælg en plads du vil opdatere: ";
                 cin >> input;
                 int line_to_change = stoi(input);
                 
                 string seng;
-                cout << "angiv ny sengenummer" << '\n';
+                cout << "angiv ny sengenummer: ";
                 cin >> seng;
                 int bed_nr = stoi(seng);
-                if(bed_nr > 999)
+                if(bed_nr > 999 || bed_nr == 0)
                 {
+                    cout << "not allowed nr. Exitting" << endl;
                     exit(1);
                 }
 
@@ -194,7 +195,6 @@ int main(int argc, char **argv)
                 unsigned int line = 1; 
                 unsigned int file_pos = 0;
                 if(file.is_open()){
-                    
                     
                     while(getline(file, tokens[line][0], ',')){
 
@@ -205,27 +205,20 @@ int main(int argc, char **argv)
                         getline(file, tokens[line][6]);
                         
                         line ++;
-                        
+
                         if(line == line_to_change){ 
                             file_pos = file.tellg();
 
                             cout << "file_pos: " <<file_pos << endl;
                         }
-                        
                     }
-                    
-
-                    
-
                 }
                 file.close();
 
-                file.open(getFilename(), ios:: out | ios::in);
+                file.open(getFilename());
 
                 if(file.is_open())
                 {
-                    
-                    //cout << file_pos << endl;
                     file.seekp(file_pos);
                     string jn = "";
                     if(bed_nr == 0)
@@ -237,25 +230,15 @@ int main(int argc, char **argv)
                     }
 
                     file << tokens[line_to_change][0] << ",seng: " << bed_nr << "," << jn;
-                    
-                    // if (!tokens[line_to_change][6].empty() && tokens[line_to_change][6][tokens[line_to_change][6].length()-1] == '\n') {
-                    //     tokens[line_to_change][6].erase(tokens[line_to_change][6].length()-1);
-                    // }
 
                     for(int i = 3; i < 6; i++)
                     {
                         file << "," << tokens[line_to_change][i];
                     }
-                    
                     file << ",0.0  ";
 
-                    
-                    
-                    cout << "token line_to_change: "<< tokens[line_to_change][0] << endl;
-                    string temper ="";
-                    file.seekg(file_pos);
-                    getline(file, temper);
-                    cout << "temper: " << temper << endl;
+                    cout << tokens[line_to_change][0] << " has beed changed from: " 
+                    << tokens[line_to_change][1] << " to: seng: " << bed_nr << endl;
                 }
                 break;
             }
