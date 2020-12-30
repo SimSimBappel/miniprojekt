@@ -4,8 +4,7 @@
 #include <fstream>
 
 #include <miniprojekt/newString.h>
-// #include <miniprojekt/newStringRequest.h>
-// #include <miniprojekt/newStringResponse.h>
+
 using namespace std;
 
 void terminalWrite();
@@ -33,17 +32,6 @@ bool callBack(miniprojekt::newStringRequest &req, miniprojekt::newStringResponse
         
         return true;
     }
-    else if(input == "tjek"){
-        cout << "du havde sendt tjek" << endl;
-        res.str  = "du havde sendt noget under tjek" ;
-        return true;
-
-    }
-    // else if(input == "opdater"){
-    //     cout << "du havde sendt opdater" << endl;
-    //     res.str = "duhavde sendt noget med under opdater";
-    //     return true;
-    // }
     else if(input == "push"){
         cout << "Pushing" << endl;
         
