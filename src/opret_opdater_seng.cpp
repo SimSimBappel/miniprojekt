@@ -1,3 +1,4 @@
+//inkluderer bibliotek(er)
 #include <ros/ros.h>
 #include <iostream>
 #include <string>
@@ -5,18 +6,21 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
-
 #include <miniprojekt/newString.h>
 
+//declare namespaces
 using namespace std;
 using namespace ros;
 
-
+//declare funcions (name, parameters, returntype)
 int checkLineNr();
 string getFilename();
 
+
+
 class Cla{
-public:
+public: 
+ //declare
     double x;
     double y;
     double z;
@@ -31,7 +35,7 @@ void counterCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &m
     double y = static_cast<double>(msg->pose.pose.position.y);
     double z = static_cast<double>(msg->pose.pose.orientation.z);
     double w = static_cast<double>(msg->pose.pose.orientation.w);
-    
+    // init variables
     info.x = x;
     info.y = y;
     info.z = z;
@@ -40,26 +44,26 @@ void counterCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr &m
 
 int main(int argc, char **argv)
 {
-    init(argc, argv, "opret_opdater_seng");
+    init(argc, argv, "opret_opdater_seng");// nu ved ros denne node kører, den skal initalizes før den kan kommunikere med ros
     int job;
+    
     bool done = false;
     string input;
     string opgave;
-    
+    //så længe ros er okay så vil der blive kørt dette loop 
     while(ok)
     {
-
-
+        
         if(done == true){
         cout << "Vil du 1: tjekke, 2: oprette, 3: opdatere en plads eller 4: push til fil? \n";
         }
         else{
             cout << "Vil du 1: tjekke, 2: oprette eller 3: opdatere en plads? ";
-    
         }
 
         cin >> opgave;
         
+        //chaining
         if (opgave == "tjekke" || opgave == "1"){
             job = 1;
         } 
@@ -73,23 +77,28 @@ int main(int argc, char **argv)
             job = 4;
         }
 
+        //declarations
         string line;
-        fstream file;
+        fstream file; 
+
         NodeHandle nh;
         ServiceClient client = nh.serviceClient<miniprojekt::newString>("service_talker" );
         miniprojekt::newString srv;
 
+        //
         switch (job){
 
             case(1):
-            {    
+            {  //klammerne gør at variablerne er lokalt declreret 
+
                 //tjekke
+                //vi fortæller "file" at den nu er 
                 file.open(getFilename());
                 
                 cout << "Vælg en plads:";
                 cin >> input;
                 
-                int lineno = stoi(input);
+                int line_no = stoi(input);// input is converted from string to int
                 int lines_read = 0;
 
                 if (file.is_open()){
@@ -99,18 +108,17 @@ int main(int argc, char **argv)
                         getline(file,line);
                         lines_read++;
                 
-
-                if(lines_read==lineno){
-                    line.resize(16);
-                    cout << line << endl;
-                    break;
+                        if(lines_read==line_no){
+                            line.resize(16); //ikke god hvis plads- og/eller sengetallet er større end 1 char
+                            cout << line << endl;
                         }   
                     }
-            file.close();
-            if (lines_read<lineno)
-                cout << "Kunne ikke finde plads" << lineno << '\n';
-                return 0;
-                
+
+                    file.close();
+                    if (lines_read<line_no){
+                        cout << "Kunne ikke finde plads" << line_no << '\n';
+                    }
+                    
                 }
                 break;
             }
@@ -139,29 +147,29 @@ int main(int argc, char **argv)
                 }
 
                 
-
-                Subscriber sub = nh.subscribe("amcl_pose", 1000, counterCallback);
+                Subscriber sub = nh.subscribe("amcl_pose", 1000, counterCallback);//declare and init 'sub'.. bruger subcribe funktionen med paramtre navn, quesize, 
                 
                 // Sætter hvor mange gange den skal lave callbacket hvert sekund
                 Rate loop_rate(10);
-
-                for(int i = 0; i<10; i++){
+                
+                //for lykker har 3 statements, nr1 kører én gang først nr2 definerer en condition, nr3 kører hver gang blokken er execveret til sidst
+                for(int i = 0; i < 10; i++){
                     spinOnce();
                     loop_rate.sleep();
                 }
                 
-                stringstream ff;
+                stringstream ff;//dec.. 
 
                 ff << "plads: " << plads << ",seng: " << seng << "," << bed << "," <<info.x << ","<< info.y << "," << info.z << "," << info.w;
                 string ss = ff.str();
 
                 
-                
+                //strcutet som indeholder head og str bliver initialiseret
                 srv.request.head = "oprette";
                 srv.request.str = ss;
                 
-                if(client.call(srv)){
-                    cout << "calling :)" << endl;
+                if(client.call(srv)){  //service clienten får .head og .str
+                    cout << "calling :)" << endl; 
                     cout << "anwser: " << srv.response << endl;
                     done = true;
                 }
@@ -255,6 +263,7 @@ int main(int argc, char **argv)
                 }
                 break;
             }
+            //hvis inputtet ikke passer med nogle af casesne så vil defaulten blive brugt
             default:
             {
                 cout << "Something went wrong" << endl;
